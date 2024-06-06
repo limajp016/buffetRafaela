@@ -1,4 +1,4 @@
-package com.fateczl.BuffetRafaela.item;
+package com.fateczl.BuffetRafaela.tema;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,43 +13,37 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name ="item")
-@Entity(name ="item")
+@Table(name="tema")
+@Entity(name="tema")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Item {
-	
-	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="item_id")
+public class Tema {
+
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(name="descricao")
 	private String descricao;
-	@Column(name="valor_unitario")
-	private Double valorUnitario;
+	@Column(name="preco")
+	private double preco;
 	
-	public Item() {
+	public Tema() {
 		
 	}
 	
-	public Item(Long id) {
-		this.id = id;
-	}
-	
-	public Item(DadosCadastroItem dados) {
+	public Tema(DadosCadastroTema dados) {
 		this.descricao = dados.descricao();
-		this.valorUnitario = dados.valorUnitario();
+		this.preco = dados.preco();
 	}
-	
-	public void atualizarInformacoes(@Valid DadosAtualizacaoItem dados) {
+
+	public void atualizarInformacoes(@Valid DadosAtualizacaoTema dados) {
 		if (dados.descricao() != null) {
 			this.descricao = dados.descricao();
 		}
-		if (dados.valorUnitario() != null) {
-			this.valorUnitario = dados.valorUnitario();
+		if (dados.preco() != null) {
+			this.preco = dados.preco();
 		}
 	}
 
@@ -61,9 +55,9 @@ public class Item {
 		return descricao;
 	}
 
-	public Double getValorUnitario() {
-		return valorUnitario;
+	public double getPreco() {
+		return preco;
 	}
-
-
+	
 }
+

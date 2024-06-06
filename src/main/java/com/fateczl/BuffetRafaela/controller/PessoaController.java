@@ -29,7 +29,7 @@ public class PessoaController {
 	public String carregaPaginaFormulario(Long id, Model model) {
 		if(id != null) {
 			var pessoa = repository.getReferenceById(id);
-			model.addAttribute("item", pessoa);
+			model.addAttribute("pessoa", pessoa);
 		}
 		return "pessoa/formulario";
 	}

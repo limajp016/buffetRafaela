@@ -13,7 +13,7 @@ public class PessoaService {
 		return repository.findAll(Sort.by("nome"));
 	}
 	
-	public Pessoa getItemByPessoa(Long id) {
+	public Pessoa getPessoaById(Long id) {
 		return repository.getReferenceById(id);
 	}
 

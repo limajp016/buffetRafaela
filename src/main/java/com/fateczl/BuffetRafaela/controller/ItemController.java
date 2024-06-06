@@ -57,7 +57,7 @@ public class ItemController {
 	
 	@DeleteMapping
 	@Transactional
-	public String removeArea(Long id) {
+	public String removeItem(Long id) {
 		repository.deleteById(id);
 		return "redirect:item";
 	}

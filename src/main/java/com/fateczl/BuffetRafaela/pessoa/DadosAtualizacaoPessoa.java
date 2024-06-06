@@ -8,6 +8,7 @@ public record DadosAtualizacaoPessoa(
 		String nome,
 		String cpf,
 		String telefone,
-		String email) {
+		String email,
+		boolean clienteAntigo) {
 
 }

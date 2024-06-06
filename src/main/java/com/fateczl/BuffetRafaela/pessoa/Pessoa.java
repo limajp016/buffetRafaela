@@ -33,62 +33,58 @@ public class Pessoa {
 	private String telefone;
 	@Column(name="email")
 	private String email;
+	@Column(name="cliente_antigo")
+	private boolean clienteAntigo = false;
 	
 	public Pessoa() {
 		
 	}
 	
-	public Pessoa(Long id) {
-		this.id = id;
-	}
-	
 	public Pessoa(DadosCadastroPessoa dados) {
 		this.nome = dados.nome();
+		this.cpf = dados.cpf();
+		this.email = dados.email();
+		this.telefone = dados.telefone();
+		this.clienteAntigo = dados.clienteAntigo();
+	}
+
+	public void atualizarInformacoes(@Valid DadosAtualizacaoPessoa dados) {
+		if (dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if (dados.email() != null) {
+			this.email = dados.email();
+		}
+		if (dados.cpf() != null) {
+			this.cpf = dados.cpf();
+		}
+		if (dados.telefone() != null) {
+			this.telefone = dados.telefone();
+		}
+	}
+	
+	public void registrarPrimeiroAluguel() {
+		this.clienteAntigo = true;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getNome() {
 		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
 	public String getTelefone() {
 		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
 	}
 
 	public String getEmail() {
 		return email;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
-	public void atualizarInformacoes(@Valid DadosAtualizacaoPessoa dados) {
-		if (dados.nome() != null) {
-			this.nome = dados.nome();
-		}
-	}
 }

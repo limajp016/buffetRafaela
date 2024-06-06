@@ -16,5 +16,5 @@ public class ItemService {
 	public Item getItemById(Long id) {
 		return repository.getReferenceById(id);
 	}
-	
+
 }
