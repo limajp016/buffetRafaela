@@ -22,6 +22,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of="id")
 public class Endereco {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="endereco_id")
     private Long id;
 	@Column(name="logradouro")
 	private String logradouro;

@@ -20,8 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Item {
-	
+public class Item {	
 	
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="item_id")

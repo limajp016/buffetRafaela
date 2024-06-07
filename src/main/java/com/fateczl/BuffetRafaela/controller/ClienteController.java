@@ -10,56 +10,56 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fateczl.BuffetRafaela.pessoa.DadosAtualizacaoPessoa;
-import com.fateczl.BuffetRafaela.pessoa.DadosCadastroPessoa;
-import com.fateczl.BuffetRafaela.pessoa.Pessoa;
-import com.fateczl.BuffetRafaela.pessoa.PessoaRepository;
+import com.fateczl.BuffetRafaela.cliente.Cliente;
+import com.fateczl.BuffetRafaela.cliente.ClienteRepository;
+import com.fateczl.BuffetRafaela.cliente.DadosAtualizacaoCliente;
+import com.fateczl.BuffetRafaela.cliente.DadosCadastroCliente;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/pessoa")
-public class PessoaController {
+@RequestMapping("/cliente")
+public class ClienteController {
 	
 	@Autowired
-	private PessoaRepository repository;
+	private ClienteRepository repository;
 	
 	@GetMapping ("/formulario")
 	public String carregaPaginaFormulario(Long id, Model model) {
 		if(id != null) {
-			var pessoa = repository.getReferenceById(id);
-			model.addAttribute("pessoa", pessoa);
+			var cliente = repository.getReferenceById(id);
+			model.addAttribute("cliente", cliente);
 		}
-		return "pessoa/formulario";
+		return "cliente/formulario";
 	}
 	
 	@GetMapping
 	public String carregaPaginaListagem(Model model) {
-		model.addAttribute("pessoa", repository.findAll(Sort.by("nome").ascending()));
-		return "pessoa/listagem";
+		model.addAttribute("cliente", repository.findAll(Sort.by("cliente").ascending()));
+		return "cliente/listagem";
 	}
 	
 	@PostMapping
 	@Transactional
-	public String cadastrar(@Valid DadosCadastroPessoa dados) {
-		repository.save(new Pessoa(dados));
-		return "redirect:pessoa";
+	public String cadastrar(@Valid DadosCadastroCliente dados) {
+		repository.save(new Cliente(dados));
+		return "redirect:cliente";
 	}
 	
 	@PutMapping
 	@Transactional
-	public String atualizar(@Valid DadosAtualizacaoPessoa dados) {
-		var pessoa = repository.getReferenceById(dados.id());
-		pessoa.atualizarInformacoes(dados);
-		return "redirect:pessoa";
+	public String atualizar(@Valid DadosAtualizacaoCliente dados) {
+		var cliente = repository.getReferenceById(dados.id());
+		cliente.atualizarInformacoes(dados);
+		return "redirect:cliente";
 	}
 	
 	@DeleteMapping
 	@Transactional
-	public String removePessoa(Long id) {
+	public String removeCliente(Long id) {
 		repository.deleteById(id);
-		return "redirect:pessoa";
+		return "redirect:cliente";
 	}
 
 }

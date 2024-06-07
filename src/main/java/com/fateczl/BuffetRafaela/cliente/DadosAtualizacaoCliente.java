@@ -1,8 +1,8 @@
-package com.fateczl.BuffetRafaela.pessoa;
+package com.fateczl.BuffetRafaela.cliente;
 
 import jakarta.validation.constraints.NotNull;
 
-public record DadosAtualizacaoPessoa(
+public record DadosAtualizacaoCliente(
 		@NotNull
 		Long id,
 		String nome,

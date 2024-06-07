@@ -1,4 +1,4 @@
-package com.fateczl.BuffetRafaela.pessoa;
+package com.fateczl.BuffetRafaela.cliente;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,17 +13,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name="pessoa")
-@Entity(name="pessoa")
+@Table(name="cliente")
+@Entity(name="cliente")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Pessoa {
+public class Cliente {
 	
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="item_id")
+	@Column(name="cliente_id")
 	private Long id;
 	@Column(name="nome")
 	private String nome;
@@ -36,11 +36,11 @@ public class Pessoa {
 	@Column(name="cliente_antigo")
 	private boolean clienteAntigo = false;
 	
-	public Pessoa() {
+	public Cliente() {
 		
 	}
 	
-	public Pessoa(DadosCadastroPessoa dados) {
+	public Cliente(DadosCadastroCliente dados) {
 		this.nome = dados.nome();
 		this.cpf = dados.cpf();
 		this.email = dados.email();
@@ -48,7 +48,7 @@ public class Pessoa {
 		this.clienteAntigo = dados.clienteAntigo();
 	}
 
-	public void atualizarInformacoes(@Valid DadosAtualizacaoPessoa dados) {
+	public void atualizarInformacoes(@Valid DadosAtualizacaoCliente dados) {
 		if (dados.nome() != null) {
 			this.nome = dados.nome();
 		}
@@ -85,6 +85,10 @@ public class Pessoa {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public boolean isClienteAntigo() {
+		return clienteAntigo;
 	}
 	
 }

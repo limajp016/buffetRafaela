@@ -1,4 +1,4 @@
-package com.fateczl.BuffetRafaela.item;
+package com.fateczl.BuffetRafaela.aluguel;
 
 import java.util.List;
 
@@ -7,16 +7,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ItemService {
+public class AluguelService {
 	@Autowired
-	private ItemRepository repository;
+	private AluguelRepository repository;
 
-	public List<Item> getAllItem(){
-		return repository.findAll(Sort.by("descricao"));
-	}
+	public List<Aluguel> getAllAluguel() {
+        return repository.findAll(Sort.by("id"));
+    }
 	
-	public Item getItemById(Long id) {
+	public Aluguel getAluguelById(Long id) {
 		return repository.getReferenceById(id);
 	}
-
 }
