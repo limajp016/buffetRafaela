@@ -37,19 +37,15 @@ public class Aluguel {
     private Long id;
 	@ManyToOne
     @JoinColumn(name = "cliente_id")
-	@Column(name="cliente")
     private Cliente cliente;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
-	@Column(name="endereco")
 	private Endereco endereco;
 	@ManyToOne
     @JoinColumn(name = "tema_id")
-	@Column(name="tema")
     private Tema tema;
 	@ManyToOne
     @JoinColumn(name = "item_id")
-	@Column(name="item")
     private Item item;
 	@Column(name="dt_hr_inicio")
 	private LocalDateTime dtHoraInicio;
