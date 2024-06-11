@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fateczl.BuffetRafaela.cliente.Cliente;
-import com.fateczl.BuffetRafaela.cliente.ClienteRepository;
-import com.fateczl.BuffetRafaela.cliente.DadosAtualizacaoCliente;
-import com.fateczl.BuffetRafaela.cliente.DadosCadastroCliente;
+import com.fateczl.BuffetRafaela.entities.Cliente;
+import com.fateczl.BuffetRafaela.records.DadosAtualizacaoCliente;
+import com.fateczl.BuffetRafaela.records.DadosCadastroCliente;
+import com.fateczl.BuffetRafaela.repositories.ClienteRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-import com.fateczl.BuffetRafaela.tema.DadosCadastroTema;
-import com.fateczl.BuffetRafaela.tema.DadosAtualizacaoTema;
-import com.fateczl.BuffetRafaela.tema.Tema;
-import com.fateczl.BuffetRafaela.tema.TemaRepository;
+import com.fateczl.BuffetRafaela.entities.Tema;
+import com.fateczl.BuffetRafaela.records.DadosAtualizacaoTema;
+import com.fateczl.BuffetRafaela.records.DadosCadastroTema;
+import com.fateczl.BuffetRafaela.repositories.TemaRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

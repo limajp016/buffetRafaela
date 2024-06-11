@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-import com.fateczl.BuffetRafaela.aluguel.Aluguel;
-import com.fateczl.BuffetRafaela.aluguel.AluguelRepository;
-import com.fateczl.BuffetRafaela.aluguel.DadosAtualizacaoAluguel;
-import com.fateczl.BuffetRafaela.aluguel.DadosCadastroAluguel;
+import com.fateczl.BuffetRafaela.entities.Aluguel;
+import com.fateczl.BuffetRafaela.records.DadosAtualizacaoAluguel;
+import com.fateczl.BuffetRafaela.records.DadosCadastroAluguel;
+import com.fateczl.BuffetRafaela.repositories.AluguelRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
