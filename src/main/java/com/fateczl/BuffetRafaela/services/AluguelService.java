@@ -41,4 +41,11 @@ public class AluguelService {
         return desconto;
 	}
 	
+    public List<Aluguel> getAlugueisPorCliente(Long clienteId) {
+        return repository.findAllByClienteId(clienteId);
+    }
+    
+    public List<Aluguel> getAlugueisPorItem(Long temaId) {
+        return repository.findAllByTemaId(temaId);
+    }
 }

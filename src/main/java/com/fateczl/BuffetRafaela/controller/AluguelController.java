@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fateczl.BuffetRafaela.entities.Aluguel;
 import com.fateczl.BuffetRafaela.records.DadosAtualizacaoAluguel;
@@ -26,6 +27,24 @@ public class AluguelController {
 		if(id != null) {
 			var aluguel = repository.getReferenceById(id);
 			model.addAttribute("aluguel", aluguel);
+		}
+		return "aluguel/formulario";
+	}
+	
+	@GetMapping("/formulario")
+    public String carregaFormularioAlugueisPorCliente(@RequestParam(required = false) Long clienteId, Model model) {
+		if(clienteId != null) {
+			var alugueis = repository.findAllByClienteId(clienteId);
+			model.addAttribute("aluguel", alugueis);
+		}
+		return "aluguel/formulario";
+	}
+	
+	@GetMapping("/formulario")
+    public String carregaFormularioAlugueisPorTemas(@RequestParam(required = false) Long temaId, Model model) {
+		if(temaId != null) {
+			var alugueis = repository.findAllByClienteId(temaId);
+			model.addAttribute("aluguel", alugueis);
 		}
 		return "aluguel/formulario";
 	}
