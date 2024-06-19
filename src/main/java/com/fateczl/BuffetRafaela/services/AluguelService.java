@@ -7,6 +7,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.fateczl.BuffetRafaela.entities.Aluguel;
+import com.fateczl.BuffetRafaela.entities.Cliente;
+import com.fateczl.BuffetRafaela.entities.Item;
 import com.fateczl.BuffetRafaela.repositories.AluguelRepository;
 
 @Service
@@ -21,6 +23,23 @@ public class AluguelService {
 	public Aluguel getAluguelById(Long id) {
 		return repository.getReferenceById(id);
 	}
+	
+    public Double calcularValorTotal(Aluguel aluguel) {
+        List<Item> itens = aluguel.getItens(); 
+        double valorItens = 0.0;
+        for (Item item : itens) {
+            valorItens += item.getValorUnitario();
+        }
+        double valorTotal = valorItens + aluguel.getTema().getPreco();
+
+        Cliente cliente = aluguel.getCliente();
+        if (cliente != null) {
+            double descontoCliente = calcularDesconto(cliente.getId());
+            valorTotal *= (1 - descontoCliente);
+        }
+
+        return valorTotal;
+    }
 	
 	public Double calcularDesconto(Long clienteId) {
 		double numeroDeAlugueis = repository.countByClienteId(clienteId);
@@ -41,11 +60,12 @@ public class AluguelService {
         return desconto;
 	}
 	
-    public List<Aluguel> getAlugueisPorCliente(Long clienteId) {
+  public List<Aluguel> getAlugueisPorCliente(Long clienteId) {
         return repository.findAllByClienteId(clienteId);
     }
     
     public List<Aluguel> getAlugueisPorItem(Long temaId) {
         return repository.findAllByTemaId(temaId);
     }
+
 }

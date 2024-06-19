@@ -36,7 +36,7 @@ public class ItemController {
 	
 	@GetMapping
 	public String carregaPaginaListagem(Model model) {
-		model.addAttribute("item", repository.findAll(Sort.by("descricao").ascending()));
+		model.addAttribute("listaItens", repository.findAll(Sort.by("descricao").ascending()));
 		return "item/listagem";
 	}
 	

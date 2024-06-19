@@ -3,29 +3,29 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{index.html}">
 <head>
-    <title>Lista de Itens</title>
+    <title>Lista de Temas</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-    <h1>Lista de Itens</h1>
-    <a href="/item/formulario">Novo</a>
+    <h1>Lista de Temas</h1>
+    <a href="/tema/formulario">Novo</a>
     <table>
         <thead>
             <tr>
                 <th>Descrição</th>
-                <th>Valor Unitário</th>
+                <th>Preço</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="item : ${listaItens}">
-                <td th:text="${item.descricao}"></td>
-                <td th:text="${item.valorUnitario}"></td>
+            <tr th:each="tema : ${listaTemas}">
+                <td th:text="${tema.descricao}"></td>
+                <td th:text="${tema.preco}"></td>
                 <td>
-                    <a th:href="@{/item/formulario?id={id}(id=${item.id})}"><button>Editar</button></a>
-                    <form action="/item" method="post" style="display:inline;">
+                    <a th:href="@{/tema/formulario?id={id}(id=${tema.id})}"><button>Editar</button></a>
+                    <form action="/tema" method="post" style="display:inline;">
                         <input type="hidden" name="_method" value="delete">
-                        <input type="hidden" name="id" th:value="${item.id}">
+                        <input type="hidden" name="id" th:value="${tema.id}">
                         <input type="submit" value="Excluir">
                     </form>
                 </td>

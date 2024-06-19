@@ -30,7 +30,7 @@ public class AluguelController {
 		}
 		return "aluguel/formulario";
 	}
-	
+
 	@GetMapping("/formulario")
     public String carregaFormularioAlugueisPorCliente(@RequestParam(required = false) Long clienteId, Model model) {
 		if(clienteId != null) {

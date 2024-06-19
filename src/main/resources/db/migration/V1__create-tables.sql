@@ -32,18 +32,6 @@ CREATE TABLE cliente (
     PRIMARY KEY (cliente_id)
 );
 
-CREATE TABLE endereco (
-    endereco_id INT NOT NULL AUTO_INCREMENT,
-    logradouro VARCHAR(255) NOT NULL,
-    numero VARCHAR(10) NOT NULL,
-    complemento VARCHAR(50),
-    bairro VARCHAR(255) NOT NULL,
-    cidade VARCHAR(255) NOT NULL,
-    estado CHAR(2) NOT NULL,
-    cep CHAR(7) NOT NULL
-    PRIMARY KEY (endereco_id)
-);
-
 CREATE TABLE tema (
     tema_id INT NOT NULL AUTO_INCREMENT,
     descricao VARCHAR(255) NOT NULL,

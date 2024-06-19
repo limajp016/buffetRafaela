@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Table(name="tema")
-@Entity(name="tema")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor

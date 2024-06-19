@@ -36,7 +36,7 @@ public class ClienteController {
 	
 	@GetMapping
 	public String carregaPaginaListagem(Model model) {
-		model.addAttribute("cliente", repository.findAll(Sort.by("cliente").ascending()));
+		model.addAttribute("listaClientes", repository.findAll(Sort.by("nome").ascending()));
 		return "cliente/listagem";
 	}
 	
