@@ -68,6 +68,10 @@ public class Aluguel {
 
     @Column(name = "cep")
     private String cep;
+    
+    public Aluguel() {
+    	
+    }
 
     public Aluguel(DadosCadastroAluguel dados) {
         this.cliente = dados.cliente();
@@ -191,6 +195,15 @@ public class Aluguel {
 	public String getCep() {
 		return cep;
 	}
-    
-    
+	
+	public void addItem(Item item) {
+        this.itens.add(item);
+        item.setAluguel(this);    
+    }
+	
+	public void removeItem(Item item) {
+        itens.remove(item);
+        item.setAluguel(null);
+    }
+
 }

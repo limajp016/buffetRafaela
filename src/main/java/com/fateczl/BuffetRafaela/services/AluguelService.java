@@ -37,7 +37,7 @@ public class AluguelService {
             double descontoCliente = calcularDesconto(cliente.getId());
             valorTotal *= (1 - descontoCliente);
         }
-
+        
         return valorTotal;
     }
 	
