@@ -23,7 +23,8 @@ public class AluguelService {
 	public Aluguel getAluguelById(Long id) {
 		return repository.getReferenceById(id);
 	}
-	
+
+	/*
     public Double calcularValorTotal(Aluguel aluguel) {
         List<Item> itens = aluguel.getItens(); 
         double valorItens = 0.0;
@@ -59,6 +60,7 @@ public class AluguelService {
         
         return desconto;
 	}
+	*/
 	
   public List<Aluguel> getAlugueisPorCliente(Long clienteId) {
         return repository.findAllByClienteId(clienteId);

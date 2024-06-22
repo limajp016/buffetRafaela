@@ -33,7 +33,7 @@ public class Aluguel {
     @JoinColumn(name = "tema_id")
     private Tema tema;
 
-    @OneToMany(mappedBy = "aluguel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "aluguel", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = false)
     private List<Item> itens = new ArrayList<>();
 
     @Column(name = "dt_hr_inicio")
@@ -76,7 +76,7 @@ public class Aluguel {
     public Aluguel(DadosCadastroAluguel dados) {
         this.cliente = dados.cliente();
         this.tema = dados.tema();
-        this.itens = List.of(dados.item());
+        this.itens = dados.item();
         this.dtHoraInicio = dados.dtHoraInicio();
         this.dtHoraFim = dados.dtHoraFim();
         this.valorTotal = dados.valorTotal();
@@ -196,14 +196,101 @@ public class Aluguel {
 		return cep;
 	}
 	
-	public void addItem(Item item) {
+    public void addItem(Item item) {
+        if (this.itens == null) {
+            this.itens = new ArrayList<>();
+        }
         this.itens.add(item);
-        item.setAluguel(this);    
+        item.setAluguel(this);
     }
-	
-	public void removeItem(Item item) {
+
+    public void removeItem(Item item) {
         itens.remove(item);
         item.setAluguel(null);
     }
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
+	}
+
+	public void setDtHoraInicio(LocalDateTime dtHoraInicio) {
+		this.dtHoraInicio = dtHoraInicio;
+	}
+
+	public void setDtHoraFim(LocalDateTime dtHoraFim) {
+		this.dtHoraFim = dtHoraFim;
+	}
+	
+	
+
+	public void setValorTotal() {
+	    double valorItens = 0.0;
+
+	    // Somar os valores dos itens
+	    for (Item item : this.itens) {
+	        valorItens += item.getValorUnitario();
+	    }
+
+	    // Calcular o valor total incluindo o preço do tema
+	    double desconto = this.desconto != null ? this.desconto : 0.0;
+	    this.valorTotal = (valorItens + this.tema.getPreco()) * (1 - desconto);
+	}
+
+
+
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto != null ? desconto : 0.0;
+		
+		if (cliente.getAlugueis().size() >= 5 || cliente.getAlugueis().size() < 10) {
+			this.desconto = 0.05;
+		} if (cliente.getAlugueis().size() >= 10 || cliente.getAlugueis().size() < 20) {
+			this.desconto = 0.1;
+		} if (cliente.getAlugueis().size() >= 20 || cliente.getAlugueis().size() < 30) {
+			this.desconto = 0.15;
+		} if (cliente.getAlugueis().size() >= 30 || cliente.getAlugueis().size() < 50) {
+			this.desconto = 0.2;
+		} if (cliente.getAlugueis().size() >= 50) {
+			this.desconto = 0.25;
+		}
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 }

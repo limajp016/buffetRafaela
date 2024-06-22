@@ -1,5 +1,6 @@
 package com.fateczl.BuffetRafaela.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.fateczl.BuffetRafaela.entities.Aluguel;
+import com.fateczl.BuffetRafaela.entities.Item;
 import com.fateczl.BuffetRafaela.repositories.AluguelRepository;
 import com.fateczl.BuffetRafaela.repositories.ClienteRepository;
 import com.fateczl.BuffetRafaela.repositories.TemaRepository;
@@ -49,14 +51,33 @@ public class AluguelController {
 
     @GetMapping
     public String carregaPaginaListagem(Model model) {
-        model.addAttribute("alugueis", aluguelRepository.findAll(Sort.by("dtHoraInicio").ascending()));
+        model.addAttribute("alugueis", aluguelRepository.findAll(Sort.by("id")));
         return "aluguel/listagem";
     }
 
     @PostMapping
     @Transactional
-    public String cadastrar(@Valid DadosCadastroAluguel dados) {
-        aluguelRepository.save(new Aluguel(dados));
+    public String cadastrar(@RequestParam Long clienteId,
+                            @RequestParam Long temaId,
+                            @RequestParam List<Long> itens,
+                            @Valid DadosCadastroAluguel dados) {
+        var cliente = clienteRepository.findById(clienteId)
+                                        .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+        var tema = temaRepository.findById(temaId)
+                                .orElseThrow(() -> new IllegalArgumentException("Tema não encontrado"));
+        var aluguel = new Aluguel(dados);
+        aluguel.setCliente(cliente);
+        aluguel.setTema(tema);
+        
+        for (Long itemId : itens) {
+            var item = itemRepository.findById(itemId)
+                                    .orElseThrow(() -> new IllegalArgumentException("Item não encontrado: " + itemId));
+            aluguel.addItem(item);
+        }
+
+        aluguel.setValorTotal();
+        
+        aluguelRepository.save(aluguel);
         return "redirect:/aluguel";
     }
 
@@ -71,23 +92,33 @@ public class AluguelController {
     @DeleteMapping
     @Transactional
     public String removeAluguel(@RequestParam Long id) {
-        aluguelRepository.deleteById(id);
+		var aluguel = aluguelRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Aluguel não encontrado"));
+		
+		
+		for (Item item : aluguel.getItens()) {
+			item.setAluguel(null);
+		}
+        
+		aluguelRepository.deleteById(id);
         return "redirect:/aluguel";
     }
-    
+
     @PostMapping("/submitAluguel")
     @Transactional
     public String submitAluguel(@RequestParam List<Long> itens, Model model) {
         Aluguel aluguel = new Aluguel();
-             
+        aluguel.setItens(new ArrayList<>());
+
         for (Long itemId : itens) {
             var item = itemRepository.findById(itemId).orElseThrow(() -> new IllegalArgumentException("Item não encontrado: " + itemId));
             aluguel.addItem(item);
         }
-        
+
         aluguelRepository.save(aluguel);
-     
+
         model.addAttribute("message", "Pedido submetido com sucesso!");
         return "redirect:/aluguel";
     }
+
 }
