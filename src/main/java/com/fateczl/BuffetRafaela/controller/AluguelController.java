@@ -83,11 +83,35 @@ public class AluguelController {
 
     @PutMapping
     @Transactional
-    public String atualizar(@Valid DadosAtualizacaoAluguel dados) {
-        var aluguel = aluguelRepository.getReferenceById(dados.id());
+    public String atualizar(@RequestParam Long id,
+                            @RequestParam Long clienteId,
+                            @RequestParam Long temaId,
+                            @RequestParam List<Long> itens,
+                            @Valid DadosAtualizacaoAluguel dados) {
+        var aluguel = aluguelRepository.findById(id)
+                                       .orElseThrow(() -> new IllegalArgumentException("Aluguel não encontrado"));
+        var cliente = clienteRepository.findById(clienteId)
+                                       .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+        var tema = temaRepository.findById(temaId)
+                                 .orElseThrow(() -> new IllegalArgumentException("Tema não encontrado"));
+        
+        aluguel.setCliente(cliente);
+        aluguel.setTema(tema);
         aluguel.atualizarInformacoes(dados);
+
+        // Atualizando os itens do aluguel
+        for (Long itemId : itens) {
+            var item = itemRepository.findById(itemId)
+                                     .orElseThrow(() -> new IllegalArgumentException("Item não encontrado: " + itemId));
+            aluguel.addItem(item);
+        }
+
+        aluguel.setValorTotal();
+        
+        aluguelRepository.save(aluguel);
         return "redirect:/aluguel";
     }
+
 
     @DeleteMapping
     @Transactional
